@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+profile
+# ignore sublime projects
+*.sublime-project
+*.sublime-workspace
+# ignore packages
+node_modules
+bower_components
+# ignore generated files and folders
+*.log
+*.html
+*.css
+dist
