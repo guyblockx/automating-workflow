@@ -1,0 +1,8 @@
+@import 'sprites';
+@import 'susy/sass/susy';
+
+.susy-test {
+  @include span(2);
+}
+
+@include retina-sprites($retina-groups);
