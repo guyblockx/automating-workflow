@@ -98,21 +98,19 @@ gulp.task('watch-js', ['lint:js'], browserSync.reload);
 
 // Templating
 gulp.task('nunjucks', function() {
-  nunjucksRender.nunjucks.configure(['app/templates/'], {
-    watch: false
-  });
   return gulp.src('app/pages/**/*.+(html|nunjucks)')
     .pipe(customPlumber('Error Running Nunjucks'))
     .pipe(data(function() {
-      return JSON.parse(fs.readFileSync('./app/data.json'));
+      return JSON.parse(fs.readFileSync('./app/data.json'))
     }))
-    .pipe(nunjucksRender())
+    .pipe(nunjucksRender({
+      path: ['app/templates']
+    }))
     .pipe(gulp.dest('app'))
     .pipe(browserSync.reload({
       stream: true
-    }));
+    }))
 });
-
 // Clean
 gulp.task('clean:dev', function() {
   return del.sync([
@@ -128,15 +126,6 @@ gulp.task('default', function(callback) {
     callback
   );
 });
-
-gulp.task('dev-ci', function(callback) {
-runSequence(
-'clean:dev',
-['sprites', 'lint:js', 'lint:scss'],
-['sass', 'nunjucks'],
-callback
-);
-})
 
 // =============
 // TESTING PHASE
@@ -175,4 +164,13 @@ gulp.task('test', function(done) {
   }, done).start();
 });
 
+// =================
+// INTEGRATION PHASE
+// =================
 
+gulp.task('dev-ci', function(callback) {
+  runSequence(
+    'clean:dev', ['sprites', 'lint:js', 'lint:scss'], ['sass', 'nunjucks'],
+    callback
+  );
+})
