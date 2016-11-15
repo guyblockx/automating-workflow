@@ -129,6 +129,15 @@ gulp.task('default', function(callback) {
   );
 });
 
+gulp.task('dev-ci', function(callback) {
+runSequence(
+'clean:dev',
+['sprites', 'lint:js', 'lint:scss'],
+['sass', 'nunjucks'],
+callback
+);
+})
+
 // =============
 // TESTING PHASE
 // =============
