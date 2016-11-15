@@ -3,7 +3,8 @@ node_js:
 - "7.1.0"
 
 script:
-- gulp test
+- "gulp"
+- "gulp test"
 
 before_script:
 - "export DISPLAY=:99.0"
