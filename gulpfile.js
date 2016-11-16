@@ -36,7 +36,8 @@ function customPlumber(errTitle) {
 if (process.env.CI) {
 return plumber({
 errorHandler: function(err) {
-throw Error(err.message);
+// Changes first line of error into red
+throw Error(gutil.colors.red(err.message));
 }
 });
 } else {
