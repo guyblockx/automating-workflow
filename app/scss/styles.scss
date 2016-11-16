@@ -5,8 +5,4 @@
   @include span(2);
 }
 
-.test {
-  color: $red;
-}
-
 @include retina-sprites($retina-groups);
