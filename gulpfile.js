@@ -33,13 +33,21 @@ gulp.task('hello', function() {
 
 // Custom Plumber function for catching errors
 function customPlumber(errTitle) {
-  return plumber({
-    errorHandler: notify.onError({
-      // Customizing error title
-      title: errTitle || 'Error running Gulp',
-      message: 'Error: <%= error.message %>',
-    })
-  });
+if (process.env.CI) {
+return plumber({
+errorHandler: function(err) {
+throw Error(err.message);
+}
+});
+} else {
+return plumber({
+errorHandler: notify.onError({
+// Customizing error title
+title: errTitle || 'Error running Gulp',
+message: 'Error: <%= error.message %>',
+})
+});
+}
 }
 
 // Browser Sync
